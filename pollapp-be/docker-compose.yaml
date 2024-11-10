@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   postgres:
     image: 'postgres:latest'
@@ -7,3 +9,28 @@ services:
       - 'POSTGRES_USER=root'
     ports:
       - '5432:5432'
+  your-app:
+    image: polling-app:v1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    ports:
+      - '8080:8080'
+  pgAdmin:
+    image: 'elestio/pgadmin'
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - '5050:80'
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+volumes:
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
