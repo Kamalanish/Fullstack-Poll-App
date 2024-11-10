@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/pollDb
+    username: root
+    password: secret
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update    # Options: none, validate, update, create, create-drop
+    show-sql: true        # Show SQL queries in the logs
+    properties:
+      hibernate:
+        format_sql: true
+  application:
+    name: Polling-App
